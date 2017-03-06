@@ -15,7 +15,10 @@ namespace Yargon.Terms
         private sealed class NumDescriptor : ITermDescriptor
         {
             /// <inheritdoc />
-            public IReadOnlyList<ChildDescriptor> Children { get; } = new[] {new ChildDescriptor(false)};
+            public IReadOnlyList<ChildDescriptor> Children { get; } = new[]
+            {
+                new ChildDescriptor("literal", false)
+            };
         }
     }
 }

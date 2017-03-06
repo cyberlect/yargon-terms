@@ -8,6 +8,12 @@ namespace Yargon.Terms
     public struct ChildDescriptor
     {
         /// <summary>
+        /// Gets the name of the child.
+        /// </summary>
+        /// <value>The name of the child.</value>
+        public string Name { get; }
+
+        /// <summary>
         /// Gets whether the child is abstract.
         /// </summary>
         /// <value><see langword="true"/> when the child is abstract;
@@ -18,9 +24,16 @@ namespace Yargon.Terms
         /// <summary>
         /// Initializes a new instance of the <see cref="ChildDescriptor"/> class.
         /// </summary>
+        /// <param name="name">The name of the child.</param>
         /// <param name="isAbstract">Whether the child is abstract.</param>
-        public ChildDescriptor(bool isAbstract)
+        public ChildDescriptor(string name, bool isAbstract)
         {
+            #region Contract
+            if (name == null)
+                throw new ArgumentNullException(nameof(name));
+            #endregion
+
+            this.Name = name;
             this.IsAbstract = isAbstract;
         }
         #endregion
@@ -29,7 +42,8 @@ namespace Yargon.Terms
         /// <inheritdoc />
         public bool Equals(ChildDescriptor other)
         {
-            return this.IsAbstract == other.IsAbstract;
+            return this.Name == other.Name
+                && this.IsAbstract == other.IsAbstract;
         }
 
         /// <inheritdoc />
@@ -38,6 +52,7 @@ namespace Yargon.Terms
             int hash = 17;
             unchecked
             {
+                hash = hash * 29 + this.Name.GetHashCode();
                 hash = hash * 29 + this.IsAbstract.GetHashCode();
             }
             return hash;
@@ -64,5 +79,11 @@ namespace Yargon.Terms
         /// otherwise, <see langword="false"/>.</returns>
         public static bool operator !=(ChildDescriptor left, ChildDescriptor right) => !(left == right);
         #endregion
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return (this.IsAbstract ? "abstract " : "") + this.Name;
+        }
     }
 }

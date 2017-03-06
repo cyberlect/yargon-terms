@@ -10,10 +10,12 @@ namespace Yargon.Terms
         /// <summary>
         /// The green Num term constructor.
         /// </summary>
-        public class Green : IGreenTerm
+        public sealed class Green : IGreenTerm
         {
+            private readonly ITermDescriptor descriptor;
+
             /// <inheritdoc />
-            public ITermDescriptor Descriptor { get; }
+            ITermDescriptor IGreenTerm.Descriptor => this.descriptor;
 
             /// <inheritdoc />
             public IReadOnlyList<IGreenTerm> Children { get; }
@@ -43,7 +45,7 @@ namespace Yargon.Terms
                     throw new ArgumentException($"Expected {descriptor.Children.Count} children, got {children.Count}.", nameof(children));
                 #endregion
 
-                this.Descriptor = descriptor;
+                this.descriptor = descriptor;
                 this.Children = children.ToArray();
                 this.AbstractChildren = SubList<IGreenTerm>.CreateFromDescriptor(descriptor, this.Children);
             }
@@ -54,7 +56,7 @@ namespace Yargon.Terms
             public bool Equals(Green other)
             {
                 return !Object.ReferenceEquals(other, null)
-                    && Object.Equals(this.Descriptor, other.Descriptor)
+                    && Object.Equals(this.descriptor, other.descriptor)
                     && ListComparer<IGreenTerm>.Default.Equals(this.Children, other.Children);
             }
 
@@ -64,7 +66,7 @@ namespace Yargon.Terms
                 int hash = 17;
                 unchecked
                 {
-                    hash = hash * 29 + this.Descriptor.GetHashCode();
+                    hash = hash * 29 + this.descriptor.GetHashCode();
                     hash = hash * 29 + ListComparer<IGreenTerm>.Default.GetHashCode(this.Children);
                 }
                 return hash;

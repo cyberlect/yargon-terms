@@ -13,11 +13,10 @@ namespace Yargon.Terms
         /// Gets the underlying green term.
         /// </summary>
         /// <value>The underlying green term.</value>
-        private IGreenTerm GreenTerm { get; }
-
-        private readonly ChildrenList children;
+        protected IGreenTerm GreenTerm { get; }
+        
         /// <inheritdoc />
-        public IReadOnlyList<ITerm> Children => this.children;
+        public IReadOnlyList<ITerm> Children { get; }
 
         /// <inheritdoc />
         public IReadOnlyList<ITerm> AbstractChildren { get; }
@@ -43,8 +42,9 @@ namespace Yargon.Terms
 
             this.GreenTerm = greenTerm;
             this.Parent = parent;
-            this.children = new ChildrenList(this);
-            this.AbstractChildren = SubList<ITerm>.CreateFromDescriptor(greenTerm.Descriptor, this.children);
+            // ReSharper disable once VirtualMemberCallInConstructor
+            this.Children = CreateChildrenList();
+            this.AbstractChildren = SubList<ITerm>.CreateFromDescriptor(greenTerm.Descriptor, this.Children);
         }
         #endregion
 
@@ -90,6 +90,15 @@ namespace Yargon.Terms
         /// otherwise, <see langword="false"/>.</returns>
         public static bool operator !=(Term left, Term right) => !(left == right);
         #endregion
+
+        /// <summary>
+        /// Creates the list of children.
+        /// </summary>
+        /// <returns>The list of children to use.</returns>
+        protected virtual IReadOnlyList<ITerm> CreateChildrenList()
+        {
+            return new ChildrenList(this);
+        }
 
         /// <inheritdoc />
         public override string ToString()
