@@ -12,7 +12,7 @@ namespace Yargon.Terms
         /// Gets the underlying green term.
         /// </summary>
         /// <value>The underlying green term.</value>
-        private new Green GreenTerm => (Green) base.GreenTerm;
+        public new Green GreenTerm => (Green) ((ITerm)this).GreenTerm;
         
         /// <summary>
         /// Gets the literal.

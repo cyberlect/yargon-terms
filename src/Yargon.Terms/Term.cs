@@ -13,7 +13,13 @@ namespace Yargon.Terms
         /// Gets the underlying green term.
         /// </summary>
         /// <value>The underlying green term.</value>
-        protected IGreenTerm GreenTerm { get; }
+        public IGreenTerm GreenTerm { get; }
+
+        /// <summary>
+        /// Gets the underlying green term.
+        /// </summary>
+        /// <value>The underlying green term.</value>
+        IGreenTerm ITerm.GreenTerm => this.GreenTerm;
         
         /// <inheritdoc />
         public IReadOnlyList<ITerm> Children { get; }

@@ -13,6 +13,12 @@ namespace Yargon.Terms
     public interface ITerm
     {
         /// <summary>
+        /// Gets the underlying green term.
+        /// </summary>
+        /// <value>The underlying green term.</value>
+        IGreenTerm GreenTerm { get; }
+
+        /// <summary>
         /// Gets a list of all child terms of this term,
         /// both concrete terms and abstract terms.
         /// </summary>

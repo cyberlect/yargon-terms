@@ -23,10 +23,10 @@ namespace Yargon.Terms
             // TODO: TokenType
 
             /// <inheritdoc />
-            IReadOnlyList<IGreenTerm> IGreenTerm.Children => List.Empty<IGreenTerm>();
+            IReadOnlyList<IGreenTerm> IGreenTerm.Children => Virtlink.Utilib.Collections.List.Empty<IGreenTerm>();
 
             /// <inheritdoc />
-            IReadOnlyList<IGreenTerm> IGreenTerm.AbstractChildren => List.Empty<IGreenTerm>();
+            IReadOnlyList<IGreenTerm> IGreenTerm.AbstractChildren => Virtlink.Utilib.Collections.List.Empty<IGreenTerm>();
 
             /// <inheritdoc />
             public int Width => this.Value.Length;

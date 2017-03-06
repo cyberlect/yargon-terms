@@ -10,24 +10,34 @@ namespace Yargon.Terms
     /// </summary>
     public partial struct Token : ITerm
     {
-        private readonly Green greenTerm;
+        /// <summary>
+        /// Gets the underlying green term.
+        /// </summary>
+        /// <value>The underlying green term.</value>
+        public Green GreenTerm { get; }
+
+        /// <summary>
+        /// Gets the underlying green term.
+        /// </summary>
+        /// <value>The underlying green term.</value>
+        IGreenTerm ITerm.GreenTerm => this.GreenTerm;
 
         /// <summary>
         /// Gets the value of the token.
         /// </summary>
         /// <value>The value of the token.</value>
-        public string Value => this.greenTerm.Value;
+        public string Value => this.GreenTerm.Value;
 
         // TODO: TokenType
         
         /// <inheritdoc />
-        IReadOnlyList<ITerm> ITerm.Children => List.Empty<ITerm>();
+        IReadOnlyList<ITerm> ITerm.Children => Virtlink.Utilib.Collections.List.Empty<ITerm>();
 
         /// <inheritdoc />
-        IReadOnlyList<ITerm> ITerm.AbstractChildren => List.Empty<ITerm>();
+        IReadOnlyList<ITerm> ITerm.AbstractChildren => Virtlink.Utilib.Collections.List.Empty<ITerm>();
 
         /// <inheritdoc />
-        public int Width => this.greenTerm.Width;
+        public int Width => this.GreenTerm.Width;
 
         /// <inheritdoc />
         public ITerm Parent { get; }
@@ -45,7 +55,7 @@ namespace Yargon.Terms
                 throw new ArgumentNullException(nameof(greenTerm));
             #endregion
 
-            this.greenTerm = greenTerm;
+            this.GreenTerm = greenTerm;
             this.Parent = parent;
         }
         #endregion
@@ -54,8 +64,8 @@ namespace Yargon.Terms
         /// <inheritdoc />
         public bool Equals(Token other)
         {
-            return this.greenTerm == other.greenTerm
-                && Object.Equals(this.Parent, other.Parent);
+            return this.GreenTerm == other.GreenTerm
+                   && Object.Equals(this.Parent, other.Parent);
         }
 
         /// <inheritdoc />
@@ -64,7 +74,7 @@ namespace Yargon.Terms
             int hash = 17;
             unchecked
             {
-                hash = hash * 29 + this.greenTerm.GetHashCode();
+                hash = hash * 29 + this.GreenTerm.GetHashCode();
                 hash = hash * 29 + this.Parent?.GetHashCode() ?? 0;
             }
             return hash;

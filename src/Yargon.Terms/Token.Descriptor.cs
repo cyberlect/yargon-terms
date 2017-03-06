@@ -8,7 +8,7 @@ namespace Yargon.Terms
         /// <summary>
         /// The descriptor.
         /// </summary>
-        private static TokenDescriptor Descriptor { get; } = new TokenDescriptor();
+        public static ITermDescriptor Descriptor { get; } = new TokenDescriptor();
 
         /// <summary>
         /// The descriptor.
@@ -16,7 +16,10 @@ namespace Yargon.Terms
         private sealed class TokenDescriptor : ITermDescriptor
         {
             /// <inheritdoc />
-            public IReadOnlyList<ChildDescriptor> Children => List.Empty<ChildDescriptor>();
+            public string Name => "Token";
+
+            /// <inheritdoc />
+            public IReadOnlyList<ChildDescriptor> Children => Virtlink.Utilib.Collections.List.Empty<ChildDescriptor>();
         }
     }
 }

@@ -8,6 +8,12 @@ namespace Yargon.Terms
     public interface ITermDescriptor
     {
         /// <summary>
+        /// Gets the name of the term constructor.
+        /// </summary>
+        /// <value>The name.</value>
+        string Name { get; }
+
+        /// <summary>
         /// Gets the information about the term's children.
         /// </summary>
         /// <value>The information.</value>
