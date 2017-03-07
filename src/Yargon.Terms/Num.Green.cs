@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Virtlink.Utilib.Collections;
+using Yargon.Terms.Collections;
 
 namespace Yargon.Terms
 {

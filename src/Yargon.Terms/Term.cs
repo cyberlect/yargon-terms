@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
+using Yargon.Terms.Collections;
 
 namespace Yargon.Terms
 {

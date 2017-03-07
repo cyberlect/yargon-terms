@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
+using System.Net.Sockets;
 using System.Text;
+using Virtlink.Utilib.Collections;
 
 namespace Yargon.Parsing
 {
@@ -10,6 +14,12 @@ namespace Yargon.Parsing
     /// </summary>
     public sealed class ListSlice<T> : IReadOnlyList<T>
     {
+        /// <summary>
+        /// Gets the empty list slice.
+        /// </summary>
+        /// <value>The empty list.]</value>
+        public ListSlice<T> Empty { get; } = new ListSlice<T>(List.Empty<T>(), 0, 0);
+
         /// <summary>
         /// The base list.
         /// </summary>
@@ -75,6 +85,28 @@ namespace Yargon.Parsing
             this.Count = count;
         }
         #endregion
+
+        /// <inheritdoc />
+        public int IndexOf(T item, int index, int count, IEqualityComparer<T> equalityComparer)
+        {
+            return this.Select((e, i) => new {Index = index, Element = e})
+                .Skip(index).Take(count)
+                .Where(e => equalityComparer.Equals(e.Element, item))
+                .Select(e => e.Index)
+                .DefaultIfEmpty(-1)
+                .First();
+        }
+
+        /// <inheritdoc />
+        public int LastIndexOf(T item, int index, int count, IEqualityComparer<T> equalityComparer)
+        {
+            return this.Select((e, i) => new { Index = index, Element = e })
+                .Skip(index).Take(count)
+                .Where(e => equalityComparer.Equals(e.Element, item))
+                .Select(e => e.Index)
+                .DefaultIfEmpty(-1)
+                .Last();
+        }
 
         /// <inheritdoc />
         public IEnumerator<T> GetEnumerator()

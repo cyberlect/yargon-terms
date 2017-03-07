@@ -14,7 +14,7 @@ namespace Yargon.Terms
             /// <summary>
             /// The owner of this list.
             /// </summary>
-            private Term Owner { get; }
+            private ITerm Owner { get; }
 
             /// <summary>
             /// The constructed red terms, if any.
@@ -22,7 +22,7 @@ namespace Yargon.Terms
             private readonly ITerm[] terms;
 
             /// <inheritdoc />
-            public int Count => 1;
+            public int Count => this.terms.Length;
 
             /// <inheritdoc />
             public ITerm this[int index]
@@ -47,7 +47,7 @@ namespace Yargon.Terms
             /// Initializes a new instance of the <see cref="ChildrenList"/> class.
             /// </summary>
             /// <param name="owner">The owner.</param>
-            public ChildrenList(Term owner)
+            public ChildrenList(ITerm owner)
             {
                 #region Contract
                 if (owner == null)

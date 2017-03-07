@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Yargon.Terms
+namespace Yargon.Terms.Collections
 {
     /// <summary>
-    /// A list with only specific elements from another list.
+    /// A list with only selected elements from another list.
     /// </summary>
     public sealed class SubList<T> : IReadOnlyList<T>
     {

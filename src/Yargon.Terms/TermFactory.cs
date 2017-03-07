@@ -23,6 +23,11 @@ namespace Yargon.Terms
                 return CreateTerm(descriptor, childrenList);
         }
 
+        public ListTerm CreateList(IEnumerable<ITerm> elements)
+        {
+            return new ListTerm.GreenListTerm(elements.Select(t => t.GreenTerm).ToList()).ConstructTerm(null);
+        }
+
         public Token CreateToken(string value)
         {
             return new Token.Green(value).ConstructTerm(null);
